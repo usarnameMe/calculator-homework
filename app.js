@@ -12,38 +12,51 @@ clearAll.addEventListener("click", () => {
   screen.value = "";
 });
 
+let numsToOperate = [];
+
 let operator = "";
 let num1;
 
 number.forEach((num) => {
   num.addEventListener("click", function () {
     screen.value = this.textContent;
+    if (numsToOperate.length <= 1) {
+      numsToOperate.push(screen.value);
+    } else {
+      return;
+    }
   });
 });
 
 operators.forEach((op) => {
   op.addEventListener("click", function () {
-    operator = op.innerHTML;
-    num1 = Number(screen.value);
+    if (op.innerHTML !== "=") {
+      operator = op.innerHTML;
+    }
+
     screen.value = " ";
   });
 });
 
 equal.addEventListener("click", function () {
-  console.log(screen.value);
-  let num2 = Number(screen.value);
-  console.log(num1);
-  console.log(num2);
-  console.log(operator);
+  let num1 = Number(numsToOperate[0]);
+  let num2 = Number(numsToOperate[1]);
   let result;
-  operator === "+"
-    ? num1 + num2
-    : operator === "-"
-    ? num1 - num2
-    : operator === "*"
-    ? num1 * num2
-    : operator === "/"
-    ? num1 / num2
-    : "";
+  switch (operator) {
+    case "+":
+      result = num1 + num2;
+      break;
+    case "-":
+      result = num1 - num2;
+      break;
+    case "*":
+      result = num1 * num2;
+      break;
+    case "/":
+      result = num1 / num2;
+      break;
+  }
+
   screen.value = result;
+  numsToOperate = [];
 });
