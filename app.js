@@ -19,7 +19,7 @@ let num1;
 
 number.forEach((num) => {
   num.addEventListener("click", function () {
-    screen.value = this.textContent;
+    screen.value += this.textContent;
     if (numsToOperate.length <= 1) {
       numsToOperate.push(screen.value);
     } else {
